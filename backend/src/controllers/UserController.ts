@@ -21,6 +21,31 @@ const createCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
+const updateCurrentUser = async (req: Request, res: Response) => {
+  try {
+    const { name, addressLine1, country, city } = req.body;
+
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ messgae: "User not found" });
+    }
+
+    user.name = name;
+    user.addressLine1 = addressLine1;
+    user.city = city;
+    user.country = country;
+
+    await user.save();
+
+    res.send(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ messgae: "Error updating User Details" });
+  }
+};
+
 export default {
   createCurrentUser,
+  updateCurrentUser,
 };

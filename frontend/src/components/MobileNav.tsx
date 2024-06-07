@@ -23,7 +23,7 @@ const MobileNav = () => {
           {isAuthenticated ? (
             <span className="flex items-center font-bold gap-2">
               <CircleUserRound className="text-orange-500" />
-              {user?.email}
+              {user?.name?.split(" ")[0]}
             </span>
           ) : (
             <span>Welcome ton MERN Eats!</span>
