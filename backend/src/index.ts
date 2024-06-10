@@ -16,10 +16,6 @@ app.use(cors());
 
 app.use("/api/user", userRoute);
 
-app.get("/api/test", async (req: Request, res: Response) => {
-  res.send({ message: "Hello" });
-});
-
 app.listen(7000, () => {
   console.log(`Listening on POrt Number 7000`);
 });
