@@ -1,5 +1,7 @@
+import { User } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
+import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -70,13 +72,59 @@ export const useUpdateUser = () => {
   const {
     mutateAsync: updateUser,
     isLoading,
-    isError,
+    error,
+    reset,
     isSuccess,
   } = useMutation(updateUserRequest);
+
+  if (isSuccess) {
+    toast.success("User Profile Updated!");
+  }
+
+  if (error) {
+    toast.error(error.toString());
+    reset();
+  }
   return {
     updateUser,
     isLoading,
-    isError,
     isSuccess,
+  };
+};
+
+export const useGetUser = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const getUserRequest = async (): Promise<User> => {
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${API_BASE_URL}/api/user`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error fetching user");
+    }
+
+    return response.json();
+  };
+
+  const {
+    data: userData,
+    isLoading,
+    error,
+  } = useQuery("Fetching user", getUserRequest);
+
+  if (error) {
+    toast.error(error.toString());
+  }
+
+  return {
+    userData,
+    isLoading,
+    error,
   };
 };
