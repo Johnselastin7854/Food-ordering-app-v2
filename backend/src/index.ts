@@ -14,11 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/user", userRoute);
-
-app.get("/api/test", async (req: Request, res: Response) => {
-  res.send({ message: "Hello" });
+app.get("/health", async (req: Request, res: Response) => {
+  res.send({ messgae: "Health is OK!" });
 });
+
+app.use("/api/user", userRoute);
 
 app.listen(7000, () => {
   console.log(`Listening on POrt Number 7000`);
