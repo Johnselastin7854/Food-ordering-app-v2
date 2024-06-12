@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import userRoute from "./routes/UserRoute";
+import myRestaurantRoute from "./routes/MyRestaurant";
 import { v2 as cloudinary } from "cloudinary";
 // import path from "path";
 // app.use(express.static(path.join(__dirname, "../../frontend/dist")));
@@ -26,6 +27,8 @@ app.get("/health", async (req: Request, res: Response) => {
 });
 
 app.use("/api/user", userRoute);
+
+app.use("/api/my/restaurant", myRestaurantRoute);
 
 app.listen(7000, () => {
   console.log(`Listening on POrt Number 7000`);
