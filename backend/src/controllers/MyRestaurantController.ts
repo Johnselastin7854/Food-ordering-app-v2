@@ -48,4 +48,40 @@ const createMyRestuarant = async (req: Request, res: Response) => {
   }
 };
 
-export default { createMyRestuarant, getMyRestaurant };
+const updateMyRestuarant = async (req: Request, res: Response) => {
+  try {
+    const {
+      restaurantName,
+      city,
+      country,
+      deliveryPrice,
+      estimatedDeliveryTime,
+      cuisines,
+      menuItems,
+    } = req.body;
+
+    const restaurant = await Restaurant.findById(req.userId);
+
+    if (!restaurant) {
+      return res.status(404).json({ messgae: "User not found" });
+    }
+
+    restaurant.restaurantName = restaurantName;
+    restaurant.city = city;
+    restaurant.country = country;
+    restaurant.deliveryPrice = deliveryPrice;
+    restaurant.estimatedDeliveryTime = estimatedDeliveryTime;
+    restaurant.cuisines = cuisines;
+    restaurant.menuItems = menuItems;
+    restaurant.lastUpdate = new Date();
+
+    await restaurant.save();
+
+    res.send(restaurant);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Something went wrong");
+  }
+};
+
+export default { createMyRestuarant, getMyRestaurant, updateMyRestuarant };
