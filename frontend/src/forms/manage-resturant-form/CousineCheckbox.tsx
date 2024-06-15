@@ -3,16 +3,16 @@ import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 type Props = {
-  field: ControllerRenderProps<FieldValues, "cuisines">;
   cuisine: string;
+  field: ControllerRenderProps<FieldValues, "cuisines">;
 };
 
-const CousineCheckbox = ({ field, cuisine }: Props) => {
+const CuisineCheckbox = ({ cuisine, field }: Props) => {
   return (
-    <FormItem className="flex flex-row items-center  space-x-1 space-y-0 mt-2">
+    <FormItem className="flex flex-row items-center space-x-1 space-y-0 mt-2">
       <FormControl>
         <Checkbox
-          className="bg-white "
+          className="bg-white"
           checked={field.value.includes(cuisine)}
           onCheckedChange={(checked) => {
             if (checked) {
@@ -30,4 +30,4 @@ const CousineCheckbox = ({ field, cuisine }: Props) => {
   );
 };
 
-export default CousineCheckbox;
+export default CuisineCheckbox;

@@ -10,15 +10,15 @@ const MenuSection = () => {
     control,
     name: "menuItems",
   });
+
   return (
     <div className="space-y-2">
-      <div className="text-2xl font-bold">
-        <h2>Menu</h2>
+      <div>
+        <h2 className="text-2xl font-bold">Menu</h2>
         <FormDescription>
-          Create your menu and given each item a name and a price
+          Create your menu and give each item a name and a price
         </FormDescription>
       </div>
-
       <FormField
         control={control}
         name="menuItems"
@@ -26,6 +26,7 @@ const MenuSection = () => {
           <FormItem className="flex flex-col gap-2">
             {fields.map((_, index) => (
               <MenuItemInput
+                key={index}
                 index={index}
                 removeMenuItem={() => remove(index)}
               />
