@@ -101,7 +101,7 @@ export const useGetUser = () => {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
     });
 
