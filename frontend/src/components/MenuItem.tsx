@@ -7,12 +7,12 @@ type Props = {
     name: string;
     price: number;
   };
-  // addToCart: () => void;
+  addToCart: () => void;
 };
 
-const MenuItem = ({ menuItem /* addToCart */ }: Props) => {
+const MenuItem = ({ menuItem, addToCart }: Props) => {
   return (
-    <Card className="cursor-pointer" /* onClick={addToCart} */>
+    <Card className="cursor-pointer" onClick={addToCart}>
       <CardHeader>
         <CardTitle>{menuItem.name}</CardTitle>
       </CardHeader>
