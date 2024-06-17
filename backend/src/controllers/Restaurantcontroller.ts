@@ -1,6 +1,22 @@
 import { Request, Response } from "express";
 import Restaurant from "../models/restaurant";
 
+const getRestaurantById = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+
+    const restaurant = await Restaurant.findById(restaurantId);
+    if (!restaurant) {
+      return res.status(404).json({ message: "restaurant not found" });
+    }
+
+    res.json(restaurant);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "something went wrong" });
+  }
+};
+
 const searchRestaurant = async (req: Request, res: Response) => {
   //http://localhost:9000/api/restaurant/search/London?searchQuery=green+salad&sortOption-estimated Delivery Time&selectedCuisines=Salads&page=1
   try {
@@ -76,4 +92,4 @@ const searchRestaurant = async (req: Request, res: Response) => {
   }
 };
 
-export default { searchRestaurant };
+export default { searchRestaurant, getRestaurantById };
