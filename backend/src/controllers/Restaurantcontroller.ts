@@ -35,7 +35,7 @@ const searchRestaurant = async (req: Request, res: Response) => {
         .split(",")
         .map((cuisine) => new RegExp(cuisine, "i"));
 
-      query["cuisine"] = { $all: cuisinesArray };
+      query["cuisines"] = { $all: cuisinesArray };
     }
 
     if (searchQuery) {
