@@ -3,13 +3,15 @@ import { Restaurant } from "@/types";
 import { CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Separator } from "@radix-ui/react-separator";
+import { Trash } from "lucide-react";
 
 type Props = {
   resturant: Restaurant;
   cartItems: CartItem[];
+  removeFromCart: (CartItem: CartItem) => void;
 };
 
-const OrderSummary = ({ resturant, cartItems }: Props) => {
+const OrderSummary = ({ resturant, cartItems, removeFromCart }: Props) => {
   const getTotalCost = () => {
     const totalInPrice = cartItems.reduce(
       (total, cartItem) => total + cartItem.price * cartItem.quantity,
@@ -39,6 +41,11 @@ const OrderSummary = ({ resturant, cartItems }: Props) => {
             </span>
             <span className="flex items-center gap-1">
               ₹ {((item.price * item.quantity) / 100).toFixed(2)}
+              <Trash
+                className="curosr-pointer"
+                color="red"
+                onClick={() => removeFromCart(item)}
+              />
             </span>
           </div>
         ))}
